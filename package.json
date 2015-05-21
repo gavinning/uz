@@ -1,0 +1,33 @@
+{
+	"name": "uz",
+	"description": "基于fis封装符合自身开发习惯的的自定义解决方案",
+	"main": "uz.js",
+	"version": "0.0.2",
+	"scripts": {
+		"test": "uz -v"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/gavinning/uz.git"
+	},
+	"keywords": [
+		"uz",
+		"fis"
+	],
+	"author": "gavinning",
+	"license": "GPL",
+	"bugs": {
+		"url": "https://github.com/gavinning/uz/issues"
+	},
+	"homepage": "https://github.com/gavinning/uz",
+	"dependencies": {
+		"fis": "~1.9.17",
+		"fis-parser-utc": "0.0.2",
+		"fis-parser-less": "0.1.0",
+		"fis-parser-jade": "~0.0.11",
+		"fis-postprocessor-require-async": "0.0.9",
+		"fis-postpackager-autoload": "0.0.x",
+		"fis-postpackager-simple": "0.0.x",
+		"fis-lint-jshint": "0.0.4"
+	}
+}
