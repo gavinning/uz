@@ -37,6 +37,18 @@ fis.config.merge({
 		},
 		path: [
 			{
+				// 涉及less合并先后顺序
+				// 不处理css/lib下的less文件，由common.less或home.less使用import语法加载
+				reg: /\/css\/lib\/(.*)\.(less)$/i,
+				release: false
+			},
+			{
+				// 涉及less合并先后顺序
+				// 不处理css/lib下的less文件，由common.less或home.less使用import语法加载
+				reg: /\/css\/inc\/(.*)\.(less)$/i,
+				release: false
+			},
+			{
 				// widget目录下的其他脚本文件
 				reg: /\/widget\/(.*)\.(js)$/i,
 				// 是组件化的，会被jswrapper包装
