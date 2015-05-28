@@ -10,10 +10,10 @@ fis.config.merge({
 		'css/home.css': ['**.less']
 	},
 	project: {
+		include: 'src/**',
 		watch: {
-			exclude: ['node_modules', 'dest']
-		},
-		exclude: ['node_modules/**', 'dest/**']
+			exclude: ['node_modules', /dest/]
+		}
 	},
 	modules: {
 		parser: {

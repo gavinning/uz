@@ -2,7 +2,10 @@
 	"name": "uz",
 	"description": "基于fis封装符合自身开发习惯的的自定义解决方案",
 	"main": "uz.js",
-	"version": "0.0.2",
+	"version": "0.0.5",
+	"bin": {
+		"uz": "./bin/uz"
+	},
 	"scripts": {
 		"test": "uz -v"
 	},
