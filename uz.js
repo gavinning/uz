@@ -11,6 +11,7 @@ fis.config.merge({
 	},
 	project: {
 		include: 'src/**',
+		exclude: ['node_modules/**', 'dest/**', 'dist/**', '_build/**'],
 		watch: {
 			exclude: ['node_modules', /dest/]
 		}
@@ -36,6 +37,10 @@ fis.config.merge({
 			jade: 'html'
 		},
 		path: [
+			{
+				reg: 'uzconfig.js',
+				release: false
+			},
 			{
 				// 涉及less合并先后顺序
 				// 不处理css/lib下的less文件，由common.less或home.less使用import语法加载

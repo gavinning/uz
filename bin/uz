@@ -1,3 +1,55 @@
 #!/usr/bin/env node
 
-require('../uz.js').cli.run( process.argv );
+var fis = require('fis');
+var path = require('path');
+var lib = require('linco.lab').lib;
+var filename = 'uzconfig.js';
+var dirname = process.cwd();
+var src, argv = process.argv;
+
+function findconfig(){
+
+	// 查找uzconfig.js
+	while(dirname !== path.dirname(dirname)){
+
+		// 尝试当前路径下查找
+		src = path.join(dirname, filename);
+		if(lib.isFile(src)){
+			break;
+		} else {
+			src = null
+		}
+
+		// 查找上一级
+		dirname = path.dirname(dirname);
+
+		// 尝试查找根目录
+		if(dirname === path.dirname(dirname)){
+			src = path.join(dirname, filename);
+			if(lib.isFile(src)){
+				break;
+			} else {
+				src = null
+			}
+		}
+	}
+
+	return src;
+}
+
+// 查找uzconfig.js 
+src = findconfig();
+
+if(argv[2] === 'release'){
+
+	// 检查uzconfig.js
+	if(!src){
+		return fis.log.warning('missing config file [uzconfig.js]');
+	}
+
+	// 指定uzconfig.js为配置文件
+    argv.push('-f');
+    argv.push(src);
+}
+
+require('../uz.js').cli.run(argv);
