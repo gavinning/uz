@@ -18,7 +18,7 @@ fis.config.merge({
 	modules: {
 		parser: {
 			less: 'less',
-			jade: 'jade'
+			jade: ['replace-path', 'jade']
 		},
 		postprocessor: {
 			js: "jswrapper, require-async",
@@ -80,6 +80,11 @@ fis.config.merge({
 		parser: {
 			jade: {
 				pretty: true
+			},
+			"replace-path": {
+				replace: {
+					"common": "Modules"
+				}
 			}
 		},
 		spriter: {

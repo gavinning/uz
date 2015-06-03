@@ -4,6 +4,7 @@ var fis = require('fis');
 var path = require('path');
 var lib = require('linco.lab').lib;
 var uzconfig = 'uzconfig.js';
+var fisconf = 'fis-conf.js';
 var dirname = process.cwd();
 var src, argv = process.argv;
 
@@ -42,10 +43,14 @@ src = findconfig(uzconfig);
 
 // 检查uzconfig.js
 if(argv[2] === 'release' && src){
-
 	// 指定uzconfig.js为配置文件
 	argv.push('-f');
 	argv.push(src);
+}
+
+// 检查配置文件不存在
+if(argv[2] === 'release' && !src && !findconfig(fisconf)){
+	return fis.log.warning('missing config file [uzconfig.js]');
 }
 
 require('../uz.js').cli.run(argv);

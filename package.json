@@ -2,7 +2,7 @@
   "name": "uz",
   "description": "前端构建工具",
   "main": "uz.js",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "bin": {
     "uz": "./bin/uz"
   },
@@ -29,6 +29,7 @@
     "fis-parser-jade": "~0.0.11",
     "fis-parser-less": "0.1.0",
     "fis-parser-utc": "0.0.2",
+    "fis-parser-replace-path": "~0.0.2",
     "fis-postpackager-autoload": "0.0.x",
     "fis-postpackager-simple": "0.0.x",
     "fis-postprocessor-require-async": "0.0.9",
