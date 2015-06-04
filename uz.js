@@ -83,7 +83,7 @@ fis.config.merge({
 			},
 			"replace-path": {
 				replace: {
-					"common": "Modules"
+					"com": "Modules"
 				}
 			}
 		},
