@@ -5,6 +5,7 @@ fis.cli.info = fis.util.readJSON(__dirname + '/package.json');
 fis.require.prefixes = ['uz', 'fis'];
 
 fis.config.merge({
+	csslib: '/css/lib',
 	statics: '/static',
 	pack:{
 		'css/home.css': ['**.less']
@@ -17,7 +18,7 @@ fis.config.merge({
 	},
 	modules: {
 		parser: {
-			less: 'less',
+			less: ['less-import', 'less'],
 			jade: ['replace-path', 'jade']
 		},
 		postprocessor: {
@@ -85,6 +86,9 @@ fis.config.merge({
 				replace: {
 					"com": "Modules"
 				}
+			},
+			"less-import": {
+				file: 'src/css/lib/base.less'
 			}
 		},
 		spriter: {
