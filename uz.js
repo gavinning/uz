@@ -51,7 +51,7 @@ uz.config.merge({
 				file: 'src/css/lib/base.less'
 			},
 			"jade-runtime": {
-				
+				pretty: true
 			}
 		},
 		optimizer : {
@@ -166,6 +166,7 @@ uz.config.merge({
 			{
 				reg: /^\/src\/(.*)/i,
 				release: '/$1',
+				// useStandard: false
 			},
 			{
 				reg: /^\/dest\//i,
