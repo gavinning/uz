@@ -1,14 +1,20 @@
-var fis = module.exports = require('fis');
+var uz = root.uz = module.exports = require('fis');
 
-fis.cli.name = 'uz';
-fis.cli.info = fis.util.readJSON(__dirname + '/package.json');
-fis.require.prefixes = ['uz', 'fis'];
+uz.cli.name = 'uz';
+uz.cli.info = uz.util.readJSON(__dirname + '/package.json');
+uz.require.prefixes = ['uz', 'fis'];
 
-fis.config.merge({
-	csslib: '/css/lib',
-	statics: '/static',
+uz.config.merge({
+	images: '/images',
+	css: '/css',
+	js: '/js',
 	pack:{
-		'css/home.css': ['**.less']
+		'/js/pkg/lib.js': /\/js\/lib\/(.*)\.(js)$/i,
+		'/js/pkg/mods.js': /\/modules\/(.*)\.(js)$/i,
+		'/js/pkg/json.js': /\/widget\/(.*\.(?:json.js))/i,
+		'/js/pkg/page.js': /\/widget\/(.*)\.(js)$/i,
+		'/js/pkg/templates.js': /\/widget\/(.*)\.(jade)$/i,
+		'/css/home.css': ['**.less']
 	},
 	project: {
 		exclude: ['node_modules/**', 'dest/**', 'dist/**', '_build/**'],
@@ -19,7 +25,7 @@ fis.config.merge({
 	modules: {
 		parser: {
 			less: ['less-import', 'less'],
-			jade: ['replace-path', 'jade']
+			jade: 'jade-runtime'
 		},
 		postprocessor: {
 			js: "jswrapper, require-async",
@@ -30,52 +36,6 @@ fis.config.merge({
 		lint: {
 			js: 'jshint'
 		}
-	},
-	roadmap: {
-		ext: {
-			less: 'css',
-			jade: 'html'
-		},
-		path: [
-			{
-				reg: 'uzconfig.js',
-				release: false
-			},
-			{
-				// 涉及less合并先后顺序
-				// 不处理css/lib下的less文件，由common.less或home.less使用import语法加载
-				reg: /\/css\/lib\/(.*)\.(less)$/i,
-				release: false
-			},
-			{
-				// 涉及less合并先后顺序
-				// 不处理css/lib下的less文件，由common.less或home.less使用import语法加载
-				reg: /\/css\/inc\/(.*)\.(less)$/i,
-				release: false
-			},
-			{
-				// widget目录下的其他脚本文件
-				reg: /\/widget\/(.*)\.(js)$/i,
-				// 是组件化的，会被jswrapper包装
-				isMod: true,
-				// id是去掉widget和.js后缀中间的部分
-				id: '$1',
-				release: '${statics}/$&'
-			},
-			{
-				reg: /^\/src\/(.*)/i,
-				release: '/$1',
-				useStandard: false
-			},
-			{
-				reg: /^\/dest\//i,
-				release: false
-			},
-			{
-				reg: 'readme.md',
-				release: false
-			}
-		]
 	},
 	settings: {
 		parser: {
@@ -89,7 +49,18 @@ fis.config.merge({
 			},
 			"less-import": {
 				file: 'src/css/lib/base.less'
+			},
+			"jade-runtime": {
+				
 			}
+		},
+		optimizer : {
+			'clean-css' : {
+				keepBreaks : true
+			},
+			'png-compressor' : {
+				type : 'pngquant'
+			}			
 		},
 		spriter: {
 			csssprites: {
@@ -116,5 +87,94 @@ fis.config.merge({
 				node: true
 			}
 		}
+	},
+	roadmap: {
+		ext: {
+			less: 'css',
+			jade: 'jade'
+		},
+		path: [
+			{
+				reg: 'uzconfig.js',
+				release: false
+			},
+			{
+				// 涉及less合并先后顺序
+				// 不处理css/lib|inc下的less文件，由common.less或home.less使用import语法加载
+				reg: /\/css\/(lib|inc)\/(.*)\.(less)$/i,
+				release: false
+			},
+			{
+	            //一级同名组件，可以引用短路径，比如modules/jquery/juqery.js
+	            //直接引用为var $ = require('jquery');
+	            reg: /\/modules\/([^\/]+)\/\1\.(js)$/i,
+	            //是组件化的，会被jswrapper包装
+	            isMod: true,
+	            //id为文件夹名
+	            id: '$1',
+	            // release: '${statics}/$&'
+			},
+			{
+	            //modules目录下的其他脚本文件
+	            reg: /\/modules\/(.*)\.(js)$/i,
+	            //是组件化的，会被jswrapper包装
+	            isMod: true,
+	            //id是去掉modules和.js后缀中间的部分
+	            id: '$1',
+			},
+			// {
+			// 	// 过滤mock的模拟规则
+			// 	reg: /\/widget\/(.*\.(?:json.js))/i,
+			// 	release: false
+			// },
+			{
+	            //一级同名组件，可以引用短路径，比如modules/jquery/juqery.js
+	            //直接引用为var $ = require('jquery');
+	            reg: /\/widget\/([^\/]+)\/\1\.(js)$/i,
+	            //是组件化的，会被jswrapper包装
+	            isMod: true,
+	            //id为文件夹名
+	            id: '$1',
+			},
+			{
+				// widget目录下的其他脚本文件
+				reg: /\/widget\/(.*)\.(js)$/i,
+				// 是组件化的，会被jswrapper包装
+				isMod: true,
+				// id是去掉widget和.js后缀中间的部分
+				id: '$1',
+			},
+			{
+				// widget目录下的其他脚本文件
+				reg: /\/widget\/(.*)\.(jade)$/i,
+				// 是组件化的，会被jswrapper包装
+				isJsLike: true,
+				isMod: true,
+				// id是去掉widget和.js后缀中间的部分
+				id: '$1',
+			},
+			{
+				// widget目录下的静态资源
+				reg: /\/widget\/(.*\.(?:png|jpg|jpeg))/i,
+				id: '$&',
+				release: '${images}/$1'
+			},
+			{
+				// widget目录下的静态资源
+				reg: /\/widget\/(.*\.(?:less|html|jade))/i,
+			},
+			{
+				reg: /^\/src\/(.*)/i,
+				release: '/$1',
+			},
+			{
+				reg: /^\/dest\//i,
+				release: false
+			},
+			{
+				reg: 'readme.md',
+				release: false
+			}
+		]
 	}
 });
