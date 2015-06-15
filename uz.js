@@ -31,7 +31,7 @@ uz.config.merge({
 			js: "jswrapper, require-async",
 			html: "require-async"
 		},
-		postpackager: ['autoload', 'simple'],
+		postpackager: ['autoload', 'simple', 'replace'],
 		spriter: 'csssprites',
 		lint: {
 			js: 'jshint'
@@ -71,6 +71,14 @@ uz.config.merge({
 		postprocessor: {
 			jswrapper: {
 				type: 'amd'
+			}
+		},
+		postpackager: {
+			replace: {
+				'/css/home.css': {
+					'url\\(/images/|gi': 'url(../images/',
+					'url\\(\'/images/|gi': 'url(\'../images/'
+				}
 			}
 		},
 		lint: {
