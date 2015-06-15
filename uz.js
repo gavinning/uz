@@ -9,11 +9,17 @@ uz.config.merge({
 	css: '/css',
 	js: '/js',
 	pack:{
+		// 打包不依赖模块加载的库文件
 		'/js/pkg/lib.js': /\/js\/lib\/(.*)\.(js)$/i,
+		// 打包纯js模块
 		'/js/pkg/mods.js': /\/modules\/(.*)\.(js)$/i,
-		'/js/pkg/json.js': /\/widget\/(.*\.(?:json.js))/i,
-		'/js/pkg/page.js': /\/widget\/(.*)\.(js)$/i,
-		'/js/pkg/templates.js': /\/widget\/(.*)\.(jade)$/i,
+		// 打包widget模拟数据
+		'/js/pkg/json.js': /\/(widget|pages)\/(.*\.(?:json.js))/i,
+		// 打包页面和widget模块js文件
+		'/js/pkg/page.js': /\/(widget|pages)\/(.*)\.(js)$/i,
+		// 打包模板文件
+		'/js/pkg/templates.js': /\/(widget|pages)\/(.*)\.(jade)$/i,
+		// 打包css文件
 		'/css/home.css': ['**.less']
 	},
 	project: {
@@ -25,7 +31,7 @@ uz.config.merge({
 	modules: {
 		parser: {
 			less: ['less-import', 'less'],
-			jade: 'jade-runtime'
+			jade: ['jade-runtime']
 		},
 		postprocessor: {
 			js: "jswrapper, require-async",
@@ -44,11 +50,11 @@ uz.config.merge({
 			},
 			"replace-path": {
 				replace: {
-					"com": "Modules"
+					"com": "mods"
 				}
 			},
 			"less-import": {
-				file: 'src/css/lib/base.less'
+				file: '/src/css/lib/base.less'
 			},
 			"jade-runtime": {
 				pretty: true
@@ -98,8 +104,7 @@ uz.config.merge({
 	},
 	roadmap: {
 		ext: {
-			less: 'css',
-			jade: 'jade'
+			less: 'css'
 		},
 		path: [
 			{
@@ -153,6 +158,23 @@ uz.config.merge({
 				id: '$1',
 			},
 			{
+	            //一级同名组件，可以引用短路径，比如modules/jquery/juqery.js
+	            //直接引用为var $ = require('jquery');
+	            reg: /\/pages\/([^\/]+)\/\1\.(js)$/i,
+	            //是组件化的，会被jswrapper包装
+	            isMod: true,
+	            //id为文件夹名
+	            id: 'pages/$1',
+			},
+			{
+				// pages目录下的其他脚本文件
+				reg: /\/pages\/(.*)\.(js)$/i,
+				// 是组件化的，会被jswrapper包装
+				isMod: true,
+				// id是去掉pages和.js后缀中间的部分
+				id: 'pages/$1',
+			},
+			{
 				// widget目录下的其他脚本文件
 				reg: /\/widget\/(.*)\.(jade)$/i,
 				// 是组件化的，会被jswrapper包装
@@ -160,6 +182,15 @@ uz.config.merge({
 				isMod: true,
 				// id是去掉widget和.js后缀中间的部分
 				id: '$1',
+			},
+			{
+				// pages目录下的其他脚本文件
+				reg: /\/pages\/(.*)\.(jade)$/i,
+				// 是组件化的，会被jswrapper包装
+				isJsLike: true,
+				isMod: true,
+				// id是去掉pages和.js后缀中间的部分
+				id: 'pages/$1',
 			},
 			{
 				// widget目录下的静态资源
@@ -170,6 +201,10 @@ uz.config.merge({
 			{
 				// widget目录下的静态资源
 				reg: /\/widget\/(.*\.(?:less|html|jade))/i,
+			},
+			{
+				// pages目录下的静态资源
+				reg: /\/pages\/(.*\.(?:less|html|jade))/i,
 			},
 			{
 				reg: /^\/src\/(.*)/i,
