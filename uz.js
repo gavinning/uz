@@ -167,6 +167,12 @@ uz.config.merge({
 	            id: 'pages/$1',
 			},
 			{
+				// pages目录下init.js
+				reg: /\/pages\/(init)\.js/i,
+				isMod: true,
+				id: '$1',
+			},
+			{
 				// pages目录下的其他脚本文件
 				reg: /\/pages\/(.*)\.(js)$/i,
 				// 是组件化的，会被jswrapper包装
