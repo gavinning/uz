@@ -25,19 +25,17 @@
   "homepage": "https://github.com/gavinning/uz",
   "dependencies": {
     "fis": "~1.9.17",
-    
     "fis-lint-jshint": "0.0.4",
-    "fis-parser-utc": "0.0.2",
-    "fis-postpackager-autoload": "0.0.x",
-    "fis-postpackager-simple": "0.0.x",
-    "fis-postprocessor-require-async": "0.0.9",
-
     "fis-parser-jade": "~0.0.11",
     "fis-parser-jade-runtime": "*",
     "fis-parser-less": "0.1.0",
     "fis-parser-less-import": "^0.1.0",
     "fis-parser-replace-path": "~0.0.2",
+    "fis-parser-utc": "0.0.2",
+    "fis-postpackager-autoload": "0.0.x",
     "fis-postpackager-replace": "*",
+    "fis-postpackager-simple": "0.0.x",
+    "fis-postprocessor-require-async": "0.0.9",
     "linco.lab": "0.0.13"
   }
 }

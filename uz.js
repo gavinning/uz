@@ -20,7 +20,7 @@ uz.config.merge({
 		// 打包模板文件
 		'/js/pkg/templates.js': /\/(widget|pages)\/(.*)\.(jade)$/i,
 		// 打包css文件
-		'/css/home.css': ['**.less']
+		'/css/home.css': '**.less'
 	},
 	project: {
 		exclude: ['node_modules/**', 'dest/**', 'dist/**', '_build/**'],
@@ -37,7 +37,7 @@ uz.config.merge({
 			js: "jswrapper, require-async",
 			html: "require-async"
 		},
-		postpackager: ['autoload', 'simple', 'replace'],
+		postpackager: ['autoload', 'simple', 'replace'], 
 		spriter: 'csssprites',
 		lint: {
 			js: 'jshint'
@@ -70,8 +70,8 @@ uz.config.merge({
 		},
 		spriter: {
 			csssprites: {
-				scale: 0.5,
-				margin: 20
+				margin: 30,
+				// layout: 'matrix'
 			}
 		},
 		postprocessor: {
@@ -118,6 +118,11 @@ uz.config.merge({
 				release: false
 			},
 			{
+				reg: '**.less',
+				isCssLike: true,
+				useSprite: true
+			},
+			{
 	            //一级同名组件，可以引用短路径，比如modules/jquery/juqery.js
 	            //直接引用为var $ = require('jquery');
 	            reg: /\/modules\/([^\/]+)\/\1\.(js)$/i,
@@ -135,11 +140,6 @@ uz.config.merge({
 	            //id是去掉modules和.js后缀中间的部分
 	            id: '$1',
 			},
-			// {
-			// 	// 过滤mock的模拟规则
-			// 	reg: /\/widget\/(.*\.(?:json.js))/i,
-			// 	release: false
-			// },
 			{
 	            //一级同名组件，可以引用短路径，比如modules/jquery/juqery.js
 	            //直接引用为var $ = require('jquery');
@@ -201,21 +201,16 @@ uz.config.merge({
 			{
 				// widget目录下的静态资源
 				reg: /\/widget\/(.*\.(?:png|jpg|jpeg))/i,
-				id: '$&',
 				release: '${images}/$1'
 			},
 			{
-				// widget目录下的静态资源
-				reg: /\/widget\/(.*\.(?:less|html|jade))/i,
-			},
-			{
-				// pages目录下的静态资源
-				reg: /\/pages\/(.*\.(?:less|html|jade))/i,
+				// css目录下的静态资源，命中csssprite合并的图片
+				reg: /\/css\/(.*\.(?:png|jpg|jpeg))/i,
+				release: '${images}/pkg/$1'
 			},
 			{
 				reg: /^\/src\/(.*)/i,
 				release: '/$1',
-				// useStandard: false
 			},
 			{
 				reg: /^\/dest\//i,

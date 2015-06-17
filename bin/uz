@@ -5,10 +5,10 @@ var path = require('path');
 var lib = require('linco.lab').lib;
 var uzconfig = 'uzconfig.js';
 var fisconf = 'fis-conf.js';
-var dirname = process.cwd();
 var src, argv = process.argv;
 
 function findconfig(filename){
+	var dirname = process.cwd();
 
 	// 查找uzconfig.js
 	while(dirname !== path.dirname(dirname)){
