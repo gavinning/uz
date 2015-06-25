@@ -129,6 +129,7 @@ uz.config.merge({
 	            //是组件化的，会被jswrapper包装
 	            isMod: true,
 	            //id为文件夹名
+	            // var a = require('a');
 	            id: '$1',
 	            // release: '${statics}/$&'
 			},
@@ -138,6 +139,7 @@ uz.config.merge({
 	            //是组件化的，会被jswrapper包装
 	            isMod: true,
 	            //id是去掉modules和.js后缀中间的部分
+	            // var b = require('a/b');
 	            id: '$1',
 			},
 			{
@@ -147,6 +149,7 @@ uz.config.merge({
 	            //是组件化的，会被jswrapper包装
 	            isMod: true,
 	            //id为文件夹名
+	            // var a = require('a');
 	            id: '$1',
 			},
 			{
@@ -155,6 +158,7 @@ uz.config.merge({
 				// 是组件化的，会被jswrapper包装
 				isMod: true,
 				// id是去掉widget和.js后缀中间的部分
+	            // var b = require('a/b');
 				id: '$1',
 			},
 			{
@@ -164,6 +168,7 @@ uz.config.merge({
 	            //是组件化的，会被jswrapper包装
 	            isMod: true,
 	            //id为文件夹名
+	            // var a = require('pages/a');
 	            id: 'pages/$1',
 			},
 			{
@@ -178,6 +183,7 @@ uz.config.merge({
 				// 是组件化的，会被jswrapper包装
 				isMod: true,
 				// id是去掉pages和.js后缀中间的部分
+	            // var b = require('pages/a/b');
 				id: 'pages/$1',
 			},
 			{
@@ -186,8 +192,8 @@ uz.config.merge({
 				// 是组件化的，会被jswrapper包装
 				isJsLike: true,
 				isMod: true,
-				// id是去掉widget和.js后缀中间的部分
-				id: '$1',
+	            // var b = require('/widget/comment/comment.jade');
+				id: '$&',
 			},
 			{
 				// pages目录下的其他脚本文件
@@ -195,8 +201,8 @@ uz.config.merge({
 				// 是组件化的，会被jswrapper包装
 				isJsLike: true,
 				isMod: true,
-				// id是去掉pages和.js后缀中间的部分
-				id: 'pages/$1',
+	            // var b = require('/pages/comment/comment.jade');
+				id: '$&',
 			},
 			{
 				// widget目录下的静态资源
