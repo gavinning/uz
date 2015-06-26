@@ -37,7 +37,9 @@ uz.config.merge({
 			js: "jswrapper, require-async",
 			html: "require-async"
 		},
-		postpackager: ['autoload', 'simple', 'replace'], 
+		// 因为路径的关系，暂时关闭autoload, simple插件
+		// 需要手动维护index.html中的script.js, link.style
+		postpackager: ['replace'], // 'autoload', 'simple', 
 		spriter: 'csssprites',
 		lint: {
 			js: 'jshint'
@@ -112,58 +114,49 @@ uz.config.merge({
 				release: false
 			},
 			{
-				// 涉及less合并先后顺序
-				// 不处理css/lib|inc下的less文件，由common.less或home.less使用import语法加载
+				// 过滤 /css/(lib|inc)/ 目录下的less文件，不参与fis合并
 				reg: /\/css\/(lib|inc)\/(.*)\.(less)$/i,
 				release: false
 			},
 			{
 				reg: '**.less',
 				isCssLike: true,
-				useSprite: true
+				// useSprite: true
 			},
 			{
-	            //一级同名组件，可以引用短路径，比如modules/jquery/juqery.js
-	            //直接引用为var $ = require('jquery');
+	            //一级同名组件，可以引用短路径
+	            // var $ = require('jquery'); // ==> modules/jquery/juqery.js
 	            reg: /\/modules\/([^\/]+)\/\1\.(js)$/i,
-	            //是组件化的，会被jswrapper包装
 	            isMod: true,
-	            //id为文件夹名
-	            // var a = require('a');
 	            id: '$1',
 	            // release: '${statics}/$&'
 			},
 			{
 	            //modules目录下的其他脚本文件
 	            reg: /\/modules\/(.*)\.(js)$/i,
-	            //是组件化的，会被jswrapper包装
 	            isMod: true,
 	            //id是去掉modules和.js后缀中间的部分
 	            // var b = require('a/b');
 	            id: '$1',
 			},
 			{
-	            //一级同名组件，可以引用短路径，比如modules/jquery/juqery.js
-	            //直接引用为var $ = require('jquery');
+	            //一级同名组件，可以引用短路径
+	            // var $ = require('jquery'); // ==> widget/jquery/juqery.js
 	            reg: /\/widget\/([^\/]+)\/\1\.(js)$/i,
-	            //是组件化的，会被jswrapper包装
 	            isMod: true,
-	            //id为文件夹名
-	            // var a = require('a');
 	            id: '$1',
 			},
 			{
 				// widget目录下的其他脚本文件
 				reg: /\/widget\/(.*)\.(js)$/i,
-				// 是组件化的，会被jswrapper包装
 				isMod: true,
 				// id是去掉widget和.js后缀中间的部分
 	            // var b = require('a/b');
 				id: '$1',
 			},
 			{
-	            //一级同名组件，可以引用短路径，比如modules/jquery/juqery.js
-	            //直接引用为var $ = require('jquery');
+	            //一级同名组件，可以引用短路径
+	            // var home = require('pages/home'); // ==> pages/home/home.js
 	            reg: /\/pages\/([^\/]+)\/\1\.(js)$/i,
 	            //是组件化的，会被jswrapper包装
 	            isMod: true,
@@ -173,6 +166,7 @@ uz.config.merge({
 			},
 			{
 				// pages目录下init.js
+	            // var init = require('init'); // ==> pages/init.js
 				reg: /\/pages\/(init)\.js/i,
 				isMod: true,
 				id: '$1',
@@ -180,23 +174,21 @@ uz.config.merge({
 			{
 				// pages目录下的其他脚本文件
 				reg: /\/pages\/(.*)\.(js)$/i,
-				// 是组件化的，会被jswrapper包装
 				isMod: true,
 				// id是去掉pages和.js后缀中间的部分
 	            // var b = require('pages/a/b');
 				id: 'pages/$1',
 			},
 			{
-				// widget目录下的其他脚本文件
+				// widget目录下的jade文件
 				reg: /\/widget\/(.*)\.(jade)$/i,
-				// 是组件化的，会被jswrapper包装
 				isJsLike: true,
 				isMod: true,
 	            // var b = require('/widget/comment/comment.jade');
 				id: '$&',
 			},
 			{
-				// pages目录下的其他脚本文件
+				// pages目录下的jade文件
 				reg: /\/pages\/(.*)\.(jade)$/i,
 				// 是组件化的，会被jswrapper包装
 				isJsLike: true,
@@ -205,7 +197,11 @@ uz.config.merge({
 				id: '$&',
 			},
 			{
-				// widget目录下的静态资源
+				reg: /\/widget\/images\/(.*\.(?:png|jpg|jpeg))/i,
+				release: '${images}/$1'
+			},
+			{
+				// widget的images目录作为公共图片资源目录
 				reg: /\/widget\/(.*\.(?:png|jpg|jpeg))/i,
 				release: '${images}/$1'
 			},
