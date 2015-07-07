@@ -39,7 +39,7 @@ uz.config.merge({
 		},
 		// 因为路径的关系，暂时关闭autoload, simple插件
 		// 需要手动维护index.html中的script.js, link.style
-		postpackager: ['replace'], // 'autoload', 'simple', 
+		postpackager: ['replace'], // 'autoload', 'simple',
 		spriter: 'csssprites',
 		lint: {
 			js: 'jshint'
@@ -68,7 +68,7 @@ uz.config.merge({
 			},
 			'png-compressor' : {
 				type : 'pngquant'
-			}			
+			}
 		},
 		spriter: {
 			csssprites: {
@@ -140,6 +140,12 @@ uz.config.merge({
 	            id: '$1',
 			},
 			{
+	            // modules目录下的图片文件
+	            // UI组件尽量放在widget目录下，modules目录下的图片尽量只是小图标，内嵌到css中
+	            reg: /\/modules\/(.*)\.(png|jpg|gif|jpeg)$/i,
+	            release: false
+			},
+			{
 	            //一级同名组件，可以引用短路径
 	            // var $ = require('jquery'); // ==> widget/jquery/juqery.js
 	            reg: /\/widget\/([^\/]+)\/\1\.(js)$/i,
@@ -155,7 +161,14 @@ uz.config.merge({
 				id: '$1',
 			},
 			{
-	            //一级同名组件，可以引用短路径
+				// pages目录下init.js
+	            // var init = require('init'); // ==> pages/init.js
+				reg: /\/pages\/(init)\.js/i,
+				isMod: true,
+				id: '$1',
+			},
+			{
+	            //pages下一级同名组件，可以引用短路径
 	            // var home = require('pages/home'); // ==> pages/home/home.js
 	            reg: /\/pages\/([^\/]+)\/\1\.(js)$/i,
 	            //是组件化的，会被jswrapper包装
@@ -163,13 +176,6 @@ uz.config.merge({
 	            //id为文件夹名
 	            // var a = require('pages/a');
 	            id: 'pages/$1',
-			},
-			{
-				// pages目录下init.js
-	            // var init = require('init'); // ==> pages/init.js
-				reg: /\/pages\/(init)\.js/i,
-				isMod: true,
-				id: '$1',
 			},
 			{
 				// pages目录下的其他脚本文件
