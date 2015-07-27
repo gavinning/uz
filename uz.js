@@ -23,6 +23,7 @@ uz.config.merge({
 		'/css/home.css': '**.less'
 	},
 	project: {
+		include: 'src/**',
 		exclude: ['node_modules/**', 'dest/**', 'dist/**', '_build/**'],
 		watch: {
 			exclude: ['node_modules', /dest/]
