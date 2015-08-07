@@ -12,11 +12,11 @@ uz.config.merge({
 		// 打包不依赖模块加载的库文件
 		'/js/pkg/lib.js': /\/js\/lib\/(.*)\.(js)$/i,
 		// 打包纯js模块
-		'/js/pkg/mods.js': /\/modules\/(.*)\.(js)$/i,
+		'/js/pkg/mods.js': /\/modules\/(.*)\.(js|coffee)$/i,
 		// 打包widget模拟数据
 		'/js/pkg/json.js': /\/(widget|pages)\/(.*\.(?:json.js))/i,
 		// 打包页面和widget模块js文件
-		'/js/pkg/page.js': /\/(widget|pages)\/(.*)\.(js)$/i,
+		'/js/pkg/page.js': /\/(widget|pages)\/(.*)\.(js|coffee)$/i,
 		// 打包模板文件
 		'/js/pkg/templates.js': /\/(widget|pages)\/(.*)\.(jade)$/i,
 		// 打包css文件
@@ -32,7 +32,8 @@ uz.config.merge({
 	modules: {
 		parser: {
 			less: ['less-import', 'less'],
-			jade: ['jade-runtime']
+			jade: ['jade-runtime'],
+			coffee: ['coffee-script']
 		},
 		postprocessor: {
 			js: "jswrapper, require-async",
@@ -107,7 +108,8 @@ uz.config.merge({
 	},
 	roadmap: {
 		ext: {
-			less: 'css'
+			less: 'css',
+			coffee: 'js'
 		},
 		path: [
 			{
@@ -127,14 +129,14 @@ uz.config.merge({
 			{
 	            //一级同名组件，可以引用短路径
 	            // var $ = require('jquery'); // ==> modules/jquery/juqery.js
-	            reg: /\/modules\/([^\/]+)\/\1\.(js)$/i,
+	            reg: /\/modules\/([^\/]+)\/\1\.(js|coffee)$/i,
 	            isMod: true,
 	            id: '$1',
 	            // release: '${statics}/$&'
 			},
 			{
 	            //modules目录下的其他脚本文件
-	            reg: /\/modules\/(.*)\.(js)$/i,
+	            reg: /\/modules\/(.*)\.(js|coffee)$/i,
 	            isMod: true,
 	            //id是去掉modules和.js后缀中间的部分
 	            // var b = require('a/b');
@@ -149,13 +151,13 @@ uz.config.merge({
 			{
 	            //一级同名组件，可以引用短路径
 	            // var $ = require('jquery'); // ==> widget/jquery/juqery.js
-	            reg: /\/widget\/([^\/]+)\/\1\.(js)$/i,
+	            reg: /\/widget\/([^\/]+)\/\1\.(js|coffee)$/i,
 	            isMod: true,
 	            id: '$1',
 			},
 			{
 				// widget目录下的其他脚本文件
-				reg: /\/widget\/(.*)\.(js)$/i,
+				reg: /\/widget\/(.*)\.(js|coffee)$/i,
 				isMod: true,
 				// id是去掉widget和.js后缀中间的部分
 	            // var b = require('a/b');
@@ -171,7 +173,7 @@ uz.config.merge({
 			{
 	            //pages下一级同名组件，可以引用短路径
 	            // var home = require('pages/home'); // ==> pages/home/home.js
-	            reg: /\/pages\/([^\/]+)\/\1\.(js)$/i,
+	            reg: /\/pages\/([^\/]+)\/\1\.(js|coffee)$/i,
 	            //是组件化的，会被jswrapper包装
 	            isMod: true,
 	            //id为文件夹名
@@ -180,7 +182,7 @@ uz.config.merge({
 			},
 			{
 				// pages目录下的其他脚本文件
-				reg: /\/pages\/(.*)\.(js)$/i,
+				reg: /\/pages\/(.*)\.(js|coffee)$/i,
 				isMod: true,
 				// id是去掉pages和.js后缀中间的部分
 	            // var b = require('pages/a/b');
