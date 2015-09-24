@@ -117,6 +117,10 @@ uz.config.merge({
 				release: false
 			},
 			{
+				reg: 'package.json',
+				release: false
+			},
+			{
 				// 过滤 /css/(lib|inc)/ 目录下的less文件，不参与fis合并
 				reg: /\/css\/(lib|inc)\/(.*)\.(less)$/i,
 				release: false
