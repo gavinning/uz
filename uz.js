@@ -232,7 +232,7 @@ uz.config.merge({
 				release: false
 			},
 			{
-				reg: 'readme.md',
+				reg: '*',
 				release: false
 			}
 		]
