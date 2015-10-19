@@ -18,7 +18,7 @@ uz.config.merge({
         // 打包页面和widget模块js文件
         '/js/pkg/page.js': /\/(widget|pages)\/(.*)\.(js|coffee)$/i,
         // 打包模板文件
-        '/js/pkg/templates.js': /\/(widget|pages)\/(.*)\.(jade)$/i,
+        '/js/pkg/templates.js': /\/(widget|modules|pages)\/(.*)\.(jade)$/i,
         // 打包css文件
         '/css/home.css': '**.less'
     },
@@ -113,11 +113,15 @@ uz.config.merge({
         },
         path: [
             {
+                reg: 'map.json',
+                release: '/'
+            },
+            {
                 reg: 'uzconfig.js',
                 release: false
             },
             {
-                reg: 'package.json',
+                reg: '**/package.json',
                 release: false
             },
 
