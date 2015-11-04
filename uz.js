@@ -58,7 +58,11 @@ uz.config.merge({
                 }
             },
             "less-import": {
-                file: '/src/css/lib/base.less'
+                // file: '/src/css/lib/base.less'
+                file: [
+                    '/src/css/base.less',
+                    '/src/modules/base/base.less'
+                ]
             },
             "jade-runtime": {
                 pretty: true
@@ -121,7 +125,23 @@ uz.config.merge({
                 release: false
             },
             {
+                reg: /css\/base\.less/i,
+                release: false
+            },
+            {
+                reg: /base\/base\.less/i,
+                release: false
+            },
+            {
                 reg: '**/package.json',
+                release: false
+            },
+            {
+                reg: /readme.md/i,
+                release: false
+            },
+            {
+                reg: /LICENSE/i,
                 release: false
             },
 
