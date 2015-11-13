@@ -31,7 +31,7 @@ uz.config.merge({
     },
     modules: {
         parser: {
-            less: ['less-import', 'less'],
+            less: ['less-preprocessor', 'less-import', 'less'],
             jade: ['jade-runtime'],
             coffee: ['coffee-script']
         },
@@ -66,6 +66,12 @@ uz.config.merge({
             },
             "jade-runtime": {
                 pretty: true
+            },
+            "less-preprocessor": {
+                config: {
+                    id: 'src/css/common.less',
+                    import: '/src/modules/reset/reset.less'
+                }
             }
         },
         optimizer : {
@@ -130,6 +136,10 @@ uz.config.merge({
             },
             {
                 reg: /base\/base\.less/i,
+                release: false
+            },
+            {
+                reg: /reset\/reset\.less/i,
                 release: false
             },
             {
