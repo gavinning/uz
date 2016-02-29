@@ -8,6 +8,7 @@ uz.config.merge({
     images: '/images',
     css: '/css',
     js: '/js',
+    config: 'config',
     pack:{
         // 打包不依赖模块加载的库文件
         '/js/pkg/lib.js': /\/js\/lib\/(.*)\.(js)$/i,
@@ -19,6 +20,8 @@ uz.config.merge({
         '/js/pkg/page.js': /\/(widget|pages)\/(.*)\.(js|coffee)$/i,
         // 打包模板文件
         '/js/pkg/templates.js': /\/(widget|modules|pages)\/(.*)\.(jade)$/i,
+        // 打包配置文件
+        '/js/pkg/config.js': /\/(config)\/(.*)\.(js)$/i,
         // 打包css文件
         '/css/home.css': '**.less'
     },
@@ -33,7 +36,8 @@ uz.config.merge({
         parser: {
             less: ['less-preprocessor', 'less-import', 'less'],
             jade: ['jade-runtime'],
-            coffee: ['coffee-script']
+            coffee: ['coffee-script'],
+            cson: ['cson']
         },
         postprocessor: {
             js: "jswrapper, require-async",
@@ -41,8 +45,8 @@ uz.config.merge({
         },
         // 因为路径的关系，暂时关闭autoload, simple插件
         // 需要手动维护index.html中的script.js, link.style
-        postpackager: ['replace'], // 'autoload', 'simple',
-        spriter: 'csssprites',
+        postpackager: ['replace', 'px2rem'], // 'autoload', 'simple', 'px2rem'
+        // spriter: 'csssprites',
         lint: {
             js: 'jshint'
         }
@@ -52,9 +56,10 @@ uz.config.merge({
             jade: {
                 pretty: true
             },
-            "replace-path": {
-                replace: {
-                    "com": "mods"
+            cson: {
+                cson: true,
+                csonConfig: {
+                    a: 1
                 }
             },
             "less-import": {
@@ -82,12 +87,12 @@ uz.config.merge({
                 type : 'pngquant'
             }
         },
-        spriter: {
-            csssprites: {
-                margin: 30,
-                // layout: 'matrix'
-            }
-        },
+        // spriter: {
+        //     csssprites: {
+        //         margin: 30,
+        //         // layout: 'matrix'
+        //     }
+        // },
         postprocessor: {
             jswrapper: {
                 type: 'amd'
@@ -119,12 +124,21 @@ uz.config.merge({
     roadmap: {
         ext: {
             less: 'css',
-            coffee: 'js'
+            coffee: 'js',
+            cson: 'json'
         },
         path: [
             {
                 reg: 'map.json',
                 release: '/'
+            },
+            {
+                reg: '**.md',
+                release: false
+            },
+            {
+                reg: '**.MD',
+                release: false
             },
             {
                 reg: 'uzconfig.js',
@@ -169,6 +183,17 @@ uz.config.merge({
                 // useSprite: true
             },
 
+            /**
+             * Config 配置类js
+             * 用于各种类型配置文件的存放及定义
+             * @target config/*.js
+             * @example var tab = require('config.tab')
+             */
+            {
+                reg: /\/src\/config\/(.*)\.(js|coffee)$/i,
+                isMod: true,
+                id: '${config}.$1'
+            },
 
             /**
              * Modules|Widget start ---
@@ -195,14 +220,25 @@ uz.config.merge({
              * @example var bar = require('foo/bar')
              */
             {
-                reg: /\/modules\/(.*)\.(js|coffee)$/i,
-                isMod: true,
-                id: '$1'
+                 reg: /\/modules\/(.*)\.(js|coffee)$/i,
+                 isMod: true,
+                 id: '$1'
             },
             {
-                reg: /\/widget\/(.*)\.(js|coffee)$/i,
-                isMod: true,
-                id: '$1'
+                 reg: /\/widget\/(.*)\.(js|coffee)$/i,
+                 isMod: true,
+                 id: '$1'
+            },
+
+            {
+                 reg: /\/modules\/(.*)\.(cson|json)$/i,
+                 isMod: true,
+                 id: '$&'
+            },
+            {
+                 reg: /\/widget\/(.*)\.(cson|json)$/i,
+                 isMod: true,
+                 id: '$&'
             },
 
             /**
