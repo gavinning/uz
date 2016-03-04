@@ -247,11 +247,11 @@ uz.config.merge({
              * @target  widget/*.img
              */
             {
-                reg: /\/modules\/(.*\.(?:png|jpg|jpeg))/i,
+                reg: /\/modules\/(.*\.(?:png|jpg|jpeg|gif|svg))/i,
                 release: '${images}/$1'
             },
             {
-                reg: /\/widget\/(.*\.(?:png|jpg|jpeg))/i,
+                reg: /\/widget\/(.*\.(?:png|jpg|jpeg|gif|svg))/i,
                 release: '${images}/$1'
             },
 
@@ -324,7 +324,7 @@ uz.config.merge({
              * css目录下的静态资源，命中csssprite合并的图片
              */
             {
-                reg: /\/css\/(.*\.(?:png|jpg|jpeg))/i,
+                reg: /\/css\/(.*\.(?:png|jpg|jpeg|gif|svg))/i,
                 release: '${images}/pkg/$1'
             },
 
