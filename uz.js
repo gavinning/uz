@@ -45,7 +45,7 @@ uz.config.merge({
         },
         // 因为路径的关系，暂时关闭autoload, simple插件
         // 需要手动维护index.html中的script.js, link.style
-        postpackager: ['replace', 'px2rem'], // 'autoload', 'simple', 'px2rem'
+        postpackager: ['replace'], // 'autoload', 'simple', 'px2rem'
         // spriter: 'csssprites',
         lint: {
             js: 'jshint'
