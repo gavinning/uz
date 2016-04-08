@@ -1,7 +1,7 @@
 #UZ
 
 [Aimee](https://github.com/Aimeejs/aimee)框架御用构建工具
-前端构建工具，基于[fis2](https://github.com/fex-team/fis)封装，[fis官方文档](https://github.com/fex-team/fis/wiki)  
+前端构建工具，基于[fis3](https://github.com/fex-team/fis)封装，[fis官方文档](https://github.com/fex-team/fis/wiki)  
 
 
 #### Install
