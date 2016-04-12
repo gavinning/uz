@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
-// vi foo/bin/foo.js
-
-var Liftoff = require('liftoff');
-var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');
+var argv = require('minimist')(process.argv.slice(2));
+var Liftoff = require('liftoff');
 var cli = new Liftoff({
   name: 'uz', // 命令名字
   processTitle: 'uz',
   moduleName: 'uz',
-  configName: 'fis-conf',
+  configName: 'uzconfig',
 
   // only js supported!
   extensions: {
@@ -31,60 +29,3 @@ cli.launch({
   fis.set('system.globalNPMFolder', path.dirname(__dirname));
   fis.cli.run(argv, env);
 });
-
-
-//
-// var fis = require('fis');
-// var path = require('path');
-// var lib = require('linco.lab').lib;
-// var uzconfig = 'uzconfig.js';
-// var fisconf = 'fis-conf.js';
-// var src, argv = process.argv;
-//
-// function findconfig(filename){
-// 	var dirname = process.cwd();
-//
-// 	// 查找uzconfig.js
-// 	while(dirname !== path.dirname(dirname)){
-//
-// 		// 尝试当前路径下查找
-// 		src = path.join(dirname, filename);
-// 		if(lib.isFile(src)){
-// 			break;
-// 		} else {
-// 			src = null
-// 		}
-//
-// 		// 查找上一级
-// 		dirname = path.dirname(dirname);
-//
-// 		// 尝试查找根目录
-// 		if(dirname === path.dirname(dirname)){
-// 			src = path.join(dirname, filename);
-// 			if(lib.isFile(src)){
-// 				break;
-// 			} else {
-// 				src = null
-// 			}
-// 		}
-// 	}
-//
-// 	return src;
-// }
-//
-// // 查找uzconfig.js
-// src = findconfig(uzconfig);
-//
-// // 检查uzconfig.js
-// if(argv[2] === 'release' && src){
-// 	// 指定uzconfig.js为配置文件
-// 	argv.push('-f');
-// 	argv.push(src);
-// }
-//
-// // 检查配置文件不存在
-// if(argv[2] === 'release' && !src && !findconfig(fisconf)){
-// 	return fis.log.warning('missing config file [uzconfig.js]');
-// }
-//
-// require('../uz.js').cli.run(argv);

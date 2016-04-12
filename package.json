@@ -2,7 +2,7 @@
   "name": "uz",
   "description": "前端构建工具",
   "main": "uz.js",
-  "version": "1.0.0",
+  "version": "1.0.0-beta1",
   "bin": {
     "uz": "./bin/uz"
   },
@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/gavinning/uz",
   "dependencies": {
-    "fis": "~1.9.17",
     "fis-lint-jshint": "0.0.4",
     "fis-parser-coffee-script": "0.0.2",
     "fis-parser-jade": "~0.0.11",
@@ -42,6 +41,7 @@
     "fis3": "^3.3.21",
     "fis3-hook-commonjs": "^0.1.14",
     "fis3-postpackager-loader": "^1.3.15",
+    "fis3-deploy-skip-packed": "0.0.x",
     "liftoff": "^2.2.1",
     "linco.lab": "0.0.13",
     "minimist": "^1.2.0"
