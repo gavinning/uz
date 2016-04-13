@@ -76,23 +76,23 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
 // ======================== image ========================
 
 // 默认所有图片产出到 images 目录下
-.match(/\/images\/(.*\.(?:png|jpg|jpeg|gif|svg))/i, {
+.match(/\/images\/(.*\.(?:png|jpg|jpeg|gif|svg|webp))/i, {
     release: 'images/$1'
 })
 
 // modules 下的图片资源产出到 images 目录下
-.match(/\/modules\/(.*\.(?:png|jpg|jpeg|gif|svg))/i, {
+.match(/\/modules\/(.*\.(?:png|jpg|jpeg|gif|svg|webp))/i, {
     release: 'images/$1'
 })
 
 // widget 下的图片资源产出到 images 目录下
-.match(/\/widget\/(.*\.(?:png|jpg|jpeg|gif|svg))/i, {
+.match(/\/widget\/(.*\.(?:png|jpg|jpeg|gif|svg|webp))/i, {
     release: 'images/$1'
 })
 
 // pages 下的图片资源产出到 images 目录下
 // 不推荐在虚拟页里放置多媒体资源，建议放到app目录下或放置在/images目录下
-.match(/\/pages\/(.*\.(?:png|jpg|jpeg|gif|svg))/i, {
+.match(/\/pages\/(.*\.(?:png|jpg|jpeg|gif|svg|webp))/i, {
     release: 'images/pages/$1'
 })
 
@@ -112,15 +112,12 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
     }),
     rExt: '.js',
     isMod: true,
-    wrap: false
+    wrap: false,
 })
 
 // js 文件默认打包到 lib.js
 .match('*.js', {
     isMod: true,
-    // useHash: true,
-    // optimizer: fis.plugin('uglify-js'),
-    packTo: '/js/pkg/lib.js'
 })
 
 // js/lib 下的js文件不执行define包装
@@ -177,6 +174,15 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
     }
 })
 
+// ======================== es6 ==========================
+
+.set('project.fileType.text', 'es6')
+
+.match('*.es6', {
+    rExt: '.js',
+    parser: fis.plugin('es6-babel', {})
+})
+
 // ======================== pack =========================
 
 // 开启同名依赖
@@ -188,18 +194,23 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
     packTo: '/css/home.css'
 })
 
+// js 文件默认打包到 lib.js
+.match('*.js', {
+    packTo: '/js/pkg/lib.js'
+})
+
 // 打包功能
-.match(/\/(modules|widget|pages)\/(.*)\.(js)$/, {
+.match(/\/(modules|widget|pages)\/(.*)\.(js|coffee|es6)$/, {
     packTo: '/js/pkg/mods.js'
 })
 
 // 打包模板
-.match(/\/(modules|widget|pages)\/(.*)\.(jade)$/, {
-    packTo: '/js/pkg/templates.js'
+.match('*.jade', {
+    packTo: '/js/pkg/templates.js',
 })
 
 // 单独打包首页
-.match(/\/pages\/home\/(.*)\.(js|jade)$/, {
+.match(/\/pages\/home\/(.*)\.(js|jade|coffee|es6)$/, {
     packTo: '/js/pkg/page.js'
 })
 
