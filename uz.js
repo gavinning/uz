@@ -238,11 +238,18 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
 // pack
 // 启用打包插件，必须匹配 ::package
 .match('::package', {
-    packager: fis.plugin('map')//,
+    packager: fis.plugin('map'),
     // spriter: fis.plugin('csssprites', {
     //     layout: 'matrix',
     //     margin: '15'
     // })
+
+    postpackager: fis.plugin('replace', {
+        '/css/home.css': {
+            'url\\(/images/|gi': 'url(../images/',
+            'url\\(\'/images/|gi': 'url(\'../images/'
+        }
+    })
 })
 
 .match('**', {
@@ -253,6 +260,15 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
         })
     ]
 })
+
+// .match('*.{css, less}', {
+//     postpackager: fis.plugin('replace', {
+//         '/css/home.css': {
+//             'url\\(/images/|gi': 'url(../images/',
+//             'url\\(\'/images/|gi': 'url(\'../images/'
+//         }
+//     })
+// })
 
 // ======================== 环境配置 =========================
 
