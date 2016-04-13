@@ -31,7 +31,6 @@
     "fis-parser-jade-runtime": "0.0.3",
     "fis-parser-less": "0.1.0",
     "fis-parser-less-import": "^0.1.0",
-    "fis-parser-less-preprocessor": "^1.0.0",
     "fis-parser-less-px2rem": "^1.0.6",
     "fis-parser-replace-path": "~0.0.2",
     "fis-parser-utc": "0.0.2",

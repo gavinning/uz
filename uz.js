@@ -37,12 +37,6 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
 
 .match('*.less', {
     parser: [
-        fis.plugin('less-preprocessor', {
-            config: {
-                id: 'src/css/common.less',
-                import: '/src/modules/reset/reset.less'
-            }
-        }),
         fis.plugin('less-import', {
             file: [
                 '/src/css/base.less',
@@ -62,14 +56,14 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
 })
 
 // 用来控制合并时的顺序，值越小越在前面。配合 packTo 一起使用。
-.match('common.less', {
+.match('reset.less', {
     packTo: '/css/home.css',
-    packOrder: -100
+    packOrder: -200
 })
 
-// 已在common.less中自动添加reset.less, 程序不再合并reset.less
-.match('reset.less', {
-    packTo: null,
+// 用来控制合并时的顺序，值越小越在前面。配合 packTo 一起使用。
+.match('common.less', {
+    packTo: '/css/home.css',
     packOrder: -100
 })
 
