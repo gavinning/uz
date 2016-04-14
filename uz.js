@@ -5,8 +5,9 @@ fis = module.exports = require('fis3');
 fis.cli.name = 'uz';
 fis.require.prefixes.unshift('uz');
 fis.cli.info = require('./package.json');
-// 排除某些文件
-// set 为覆盖不是叠加
+// 设置有效文件
+fis.set('project.files', 'src/**');
+// 排除某些文件，覆盖不是叠加
 fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzconfig.js', 'dest/**'])
 
 // ======================== other ========================
@@ -70,32 +71,32 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
 // ======================== image ========================
 
 // 默认所有图片产出到 images 目录下
-.match(/\/images\/(.*\.(?:png|jpg|jpeg|gif|svg|webp))/i, {
+.match(/\/images\/(.*\.(?:png|jpg|jpeg|gif|svg|webp|eot|ttf|woff))/i, {
     release: 'images/$1'
 })
 
 // modules 下的图片资源产出到 images 目录下
-.match(/\/modules\/(.*\.(?:png|jpg|jpeg|gif|svg|webp))/i, {
+.match(/\/modules\/(.*\.(?:png|jpg|jpeg|gif|svg|webp|eot|ttf|woff))/i, {
     release: 'images/$1'
 })
 
 // widget 下的图片资源产出到 images 目录下
-.match(/\/widget\/(.*\.(?:png|jpg|jpeg|gif|svg|webp))/i, {
+.match(/\/widget\/(.*\.(?:png|jpg|jpeg|gif|svg|webp|eot|ttf|woff))/i, {
     release: 'images/$1'
 })
 
 // pages 下的图片资源产出到 images 目录下
 // 不推荐在虚拟页里放置多媒体资源，建议放到app目录下或放置在/images目录下
-.match(/\/pages\/(.*\.(?:png|jpg|jpeg|gif|svg|webp))/i, {
+.match(/\/pages\/(.*\.(?:png|jpg|jpeg|gif|svg|webp|eot|ttf|woff))/i, {
     release: 'images/pages/$1'
 })
 
 // 所有 png 执行压缩
-.match('*.png', {
-    optimizer: fis.plugin('png-compressor', {
-        type : 'pngquant'
-    })
-})
+// .match('*.png', {
+//     optimizer: fis.plugin('png-compressor', {
+//         type : 'pngquant'
+//     })
+// })
 
 // ======================== js ===========================
 
