@@ -197,7 +197,7 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
 })
 
 // js 文件默认打包到 lib.js
-.match('*.js', {
+.match('js/lib/*.js', {
     packTo: '/js/pkg/lib.js'
 })
 
