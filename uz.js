@@ -68,6 +68,13 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
     packOrder: -100
 })
 
+// 用来控制合并时的顺序，值越小越在前面。配合 packTo 一起使用。
+.match('skin.less', {
+    packTo: '/css/home.css',
+    packOrder: 10000
+})
+
+
 // ======================== image ========================
 
 // 默认所有图片产出到 images 目录下
