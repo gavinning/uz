@@ -1,6 +1,7 @@
-var fis, url;
+var fis, url, lib, path;
 
-url = process.cwd();
+lib = require('linco.lab').lib;
+path = require('path');
 fis = module.exports = require('fis3');
 fis.cli.name = 'uz';
 fis.require.prefixes.unshift('uz');
@@ -8,7 +9,37 @@ fis.cli.info = require('./package.json');
 // 设置有效文件
 fis.set('project.files', 'src/**');
 // 排除某些文件，覆盖不是叠加
-fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzconfig.js', 'dest/**'])
+fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzconfig.js', 'dest/**']);
+
+
+function find(file, fn){
+    var folder = process.cwd();
+    var filepath = path.join(folder, file);
+    var fn = fn || function(filepath){ return lib.isFile(filepath) };
+
+    if(lib.isFile(filepath) && fn(filepath)){
+        return filepath
+    }
+
+    // 当 folder !== '/'
+    // 递归向父级查询
+    while(folder !== '/'){
+        folder = path.dirname(folder);
+        filepath = path.join(folder, file);
+
+        // 检查filepath是否存在
+        // 检查fn条件是否达成
+        if(lib.isFile(filepath) && fn(filepath)) break;
+    }
+
+    return lib.isFile(filepath) && fn(filepath) ? filepath : folder;
+}
+
+// Get Project path
+url = path.dirname(find('uzconfig.js'));
+
+
+fis
 
 // ======================== other ========================
 
@@ -46,7 +77,8 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
         }),
         fis.plugin('less')
     ],
-    rExt: '.css'
+    rExt: '.css',
+    packTo: '/css/home.css'
 })
 
 // 样式采用keepBreaks模式进行压缩
@@ -192,9 +224,6 @@ fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzcon
     useSameNameRequire: true
 })
 
-.match('*.{css,less}', {
-    packTo: '/css/home.css'
-})
 
 // js 文件默认打包到 lib.js
 .match('js/lib/*.js', {
@@ -293,3 +322,5 @@ fis.media('dest').match('**', {
         })
     ]
 })
+
+
