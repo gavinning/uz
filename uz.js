@@ -38,6 +38,13 @@ function find(file, fn){
 // Get Project path
 url = path.dirname(find('uzconfig.js'));
 
+fis.findFile = find;
+fis.findDir = function(file, fn){
+    return fn ?
+        fn(path.dirname(this.findFile(file))):
+        path.dirname(this.findFile(file));
+}
+
 
 fis
 
