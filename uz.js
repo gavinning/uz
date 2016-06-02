@@ -64,7 +64,7 @@ fis
 // gruntfile.js
 // gulpfile.js
 // LICENSE
-.match(/.*\.md|(aimee|package|test|bower).json|(uzconfig|fis-conf|gruntfile|gulpfile).js|node_modules|LICENSE/i, {
+.match(/.*\.md|(aimee|package|bower).json|(uzconfig|fis-conf|gruntfile|gulpfile).js|node_modules|LICENSE/i, {
     release: false
 })
 
@@ -84,15 +84,15 @@ fis
         }),
         fis.plugin('less')
     ],
-    rExt: '.css',
-    packTo: '/css/home.css'
+    rExt: '.css'
 })
 
 // 样式采用keepBreaks模式进行压缩
 .match('*.{css,less}', {
     optimizer: fis.plugin('clean-css', {
         keepBreaks : true
-    })
+    }),
+    packTo: '/css/home.css'
 })
 
 // 用来控制合并时的顺序，值越小越在前面。配合 packTo 一起使用。
@@ -164,6 +164,12 @@ fis
 // js/lib 下的js文件不执行define包装
 .match('js/lib/*.js', {
     wrap: false
+})
+
+// js/mod 下的js文件不执行define包装，不进行打包
+.match(/js\/.*\.js/, {
+    wrap: false,
+    release: '$0'
 })
 
 // pages 目录下的其他js
@@ -317,7 +323,7 @@ fis
 // ======================== 环境配置 =========================
 
 // For dest
-fis.media('dest').match('*.js', {
+fis.media('dest').match('*.{js, es6}', {
     optimizer: fis.plugin('uglify-js'),
 })
 

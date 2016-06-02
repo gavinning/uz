@@ -2,7 +2,7 @@
   "name": "uz",
   "description": "前端构建工具",
   "main": "uz.js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "bin": {
     "uz": "./bin/uz"
   },
