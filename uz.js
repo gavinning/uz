@@ -68,8 +68,13 @@ fis
     release: false
 })
 
-.match(/\/css\/(lib|inc)\/(.*)(less|css)/, {
+// css/inc 不构建
+.match(/\/css\/inc\/(.*)(less|css)/, {
     release: false
+})
+
+.match(/\/css\/lib\/(.*)(less|css)/, {
+    release: 'css/lib/$1'
 })
 
 // ======================== less =========================
@@ -93,6 +98,10 @@ fis
         keepBreaks : true
     }),
     packTo: '/css/home.css'
+})
+
+.match(/\/css\/lib\/(.*)(less|css)/, {
+    packTo: null
 })
 
 // 用来控制合并时的顺序，值越小越在前面。配合 packTo 一起使用。
@@ -143,6 +152,14 @@ fis
 //         type : 'pngquant'
 //     })
 // })
+
+
+// ======================== font =========================
+
+// => /font|fonts/*.*
+.match(/\/(font|fonts)\/(.*\.(?:.+$))/i, {
+    release: 'css/$0'
+})
 
 // ======================== js ===========================
 
