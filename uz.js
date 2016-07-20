@@ -9,7 +9,17 @@ fis.cli.info = require('./package.json');
 // 设置有效文件
 fis.set('project.files', 'src/**');
 // 排除某些文件，覆盖不是叠加
-fis.set('project.ignore', ['node_modules/**', 'output/**', 'fis-conf.js', 'uzconfig.js', 'dest/**']);
+fis.set('project.ignore', [
+    'node_modules/**',
+    'output/**',
+    'fis-conf.js',
+    'uzconfig.js',
+    'dest/**',
+    '*.txt',
+    // App.test
+    '**/modules/**/test/**',
+    '**/widget/**/test/**'
+]);
 
 
 function find(file, fn){
@@ -242,9 +252,16 @@ fis
 
 .set('project.fileType.text', 'es6')
 
-.match('*.es6', {
+// .match('*.es6', {
+.match('*.{js, es6}', {
     rExt: '.js',
     parser: fis.plugin('es6-babel', {})
+})
+
+// 过滤 Mock 不执行babel编译
+// Mock 严格模式下会报错
+.match(/\/(mock)\/\1\.js$/, {
+    parser: null
 })
 
 // ======================== pack =========================
