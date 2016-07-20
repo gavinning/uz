@@ -1,6 +1,6 @@
 var fis, url, lib, path;
 
-lib = require('linco.lab').lib;
+lib = require('linco.lab');
 path = require('path');
 fis = module.exports = require('fis3');
 fis.cli.name = 'uz';
@@ -20,7 +20,6 @@ fis.set('project.ignore', [
     '**/modules/**/test/**',
     '**/widget/**/test/**'
 ]);
-
 
 function find(file, fn){
     var folder = process.cwd();
@@ -54,7 +53,6 @@ fis.findDir = function(file, fn){
         fn(path.dirname(this.findFile(file))):
         path.dirname(this.findFile(file));
 }
-
 
 fis
 
