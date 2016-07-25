@@ -246,6 +246,14 @@ fis
     }
 })
 
+// 启用插件
+.hook('relative')
+
+// 让所有文件，都使用相对路径。
+.match('**', {
+  relative: true
+})
+
 // ======================== es6 ==========================
 
 .set('project.fileType.text', 'es6')
@@ -326,12 +334,12 @@ fis
     //     margin: '15'
     // })
 
-    postpackager: fis.plugin('replace', {
-        '/css/home.css': {
-            'url\\(/images/|gi': 'url(../images/',
-            'url\\(\'/images/|gi': 'url(\'../images/'
-        }
-    })
+    // postpackager: fis.plugin('replace', {
+    //     '/css/home.css': {
+    //         'url\\(/images/|gi': 'url(../images/',
+    //         'url\\(\'/images/|gi': 'url(\'../images/'
+    //     }
+    // })
 })
 
 .match('**', {
@@ -367,5 +375,3 @@ fis.media('dest').match('**', {
         })
     ]
 })
-
-
