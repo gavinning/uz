@@ -16,9 +16,11 @@ fis.set('project.ignore', [
     'uzconfig.js',
     'dest/**',
     '*.txt',
-    // App.test
+    // App.test & App.demo
     '**/modules/**/test/**',
-    '**/widget/**/test/**'
+    '**/widget/**/test/**',
+    '**/modules/**/demo/**',
+    '**/widget/**/demo/**'
 ]);
 
 function find(file, fn){
