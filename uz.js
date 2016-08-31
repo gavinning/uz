@@ -17,7 +17,7 @@ fis.set('project.ignore', [
     'dist/**',
     'dest/**',
     '*.txt',
-    // test/demo/dest/dist/example/examples
+    // test/demo/dest/dist/example/examples/resource
     '**/modules/**/test/**',
     '**/widget/**/test/**',
     '**/modules/**/demo/**',
@@ -29,7 +29,9 @@ fis.set('project.ignore', [
     '**/modules/**/example/**',
     '**/widget/**/example/**',
     '**/modules/**/examples/**',
-    '**/widget/**/examples/**'
+    '**/widget/**/examples/**',
+    '**/modules/**/resource/**',
+    '**/widget/**/resource/**'
 ]);
 
 function find(file, fn){
