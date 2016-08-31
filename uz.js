@@ -14,13 +14,22 @@ fis.set('project.ignore', [
     'output/**',
     'fis-conf.js',
     'uzconfig.js',
+    'dist/**',
     'dest/**',
     '*.txt',
-    // App.test & App.demo
+    // test/demo/dest/dist/example/examples
     '**/modules/**/test/**',
     '**/widget/**/test/**',
     '**/modules/**/demo/**',
-    '**/widget/**/demo/**'
+    '**/widget/**/demo/**',
+    '**/modules/**/dest/**',
+    '**/widget/**/dest/**',
+    '**/modules/**/dist/**',
+    '**/widget/**/dist/**',
+    '**/modules/**/example/**',
+    '**/widget/**/example/**',
+    '**/modules/**/examples/**',
+    '**/widget/**/examples/**'
 ]);
 
 function find(file, fn){
@@ -83,10 +92,6 @@ fis
     release: false
 })
 
-.match(/\/css\/lib\/(.*)(less|css)/, {
-    release: 'css/lib/$1'
-})
-
 // ======================== less =========================
 
 .match('*.less', {
@@ -110,8 +115,10 @@ fis
     packTo: '/css/home.css'
 })
 
-.match(/\/css\/lib\/(.*)(less|css)/, {
-    packTo: null
+// 忽略 /css/lib & /css/libs
+.match(/\/css\/(lib|libs)\/(.*)\.(less|css)$/, {
+    packTo: null,
+    release: 'css/$1/$2'
 })
 
 // 用来控制合并时的顺序，值越小越在前面。配合 packTo 一起使用。
@@ -189,7 +196,7 @@ fis
 })
 
 // js/lib 下的js文件不执行define包装
-.match('js/lib/*.js', {
+.match('js/{lib, libs}/*.js', {
     wrap: false
 })
 
@@ -283,6 +290,10 @@ fis
 // js 文件默认打包到 lib.js
 .match('js/lib/*.js', {
     packTo: '/js/pkg/lib.js'
+})
+// js 文件默认打包到 lib.js
+.match('js/libs/*.js', {
+    packTo: null
 })
 
 // 打包功能
