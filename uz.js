@@ -17,6 +17,9 @@ fis.set('project.ignore', [
     'dist/**',
     'dest/**',
     '*.txt',
+    '*.psd',
+    '*.psb',
+    '*.eps',
     // test/demo/dest/dist/example/examples/resource
     '**/modules/**/test/**',
     '**/widget/**/test/**',
