@@ -1,6 +1,7 @@
 v1.2.3
 ---
-支持stylus
+* 支持stylus
+* csssprites支持rem单位
 
 v1.2.1
 ---

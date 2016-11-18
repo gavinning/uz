@@ -38,6 +38,7 @@
     "fis-postpackager-replace": "0.0.2",
     "fis-postpackager-simple": "0.0.x",
     "fis-postprocessor-require-async": "0.0.9",
+    "fis-spriter-csssprites-group": "^0.3.19",
     "fis3": "^3.3.21",
     "fis3-deploy-skip-packed": "0.0.x",
     "fis3-hook-commonjs": "^0.1.14",

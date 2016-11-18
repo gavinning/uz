@@ -109,11 +109,13 @@ fis
         }),
         fis.plugin('less')
     ],
+    useSprite: true,
     rExt: '.css'
 })
 
 .match('*.styl', {
     parser: 'stylus',
+    useSprite: true,
     rExt: '.css'
 })
 
@@ -351,7 +353,19 @@ fis
 // pack
 // 启用打包插件，必须匹配 ::package
 .match('::package', {
-    packager: fis.plugin('map')
+    packager: fis.plugin('map'),
+    spriter: fis.plugin('csssprites-group', {
+        //图片缩放比例，设计图是2倍的，所以做页面时缩小一倍
+        scale: 1/2,
+        //1rem像素值，如果不配置rem合并后的图片大小单位就是px
+        rem: 100,
+        //图之间的边距
+        margin: 10,
+        //使用矩阵排列方式，默认为线性`linear`
+        layout: 'matrix',
+        //合并图片存到/images/目录
+        to: '/images/'
+    })
 })
 
 .match('**', {
