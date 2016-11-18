@@ -93,7 +93,7 @@ fis
 })
 
 // css/inc 不构建
-.match(/\/css\/inc\/(.*)(less|css)/, {
+.match(/\/css\/inc\/(.*)(less|css|styl)/, {
     release: false
 })
 
@@ -112,8 +112,13 @@ fis
     rExt: '.css'
 })
 
+.match('*.styl', {
+    parser: 'stylus',
+    rExt: '.css'
+})
+
 // 样式采用keepBreaks模式进行压缩
-.match('*.{css,less}', {
+.match('*.{css,less,styl}', {
     optimizer: fis.plugin('clean-css', {
         keepBreaks : true
     }),
@@ -121,7 +126,7 @@ fis
 })
 
 // 忽略 /css/lib & /css/libs
-.match(/\/css\/(lib|libs)\/(.*)\.(less|css)$/, {
+.match(/\/css\/(lib|libs)\/(.*)\.(less|css|styl)$/, {
     packTo: null,
     release: 'css/$1/$2'
 })
@@ -346,18 +351,7 @@ fis
 // pack
 // 启用打包插件，必须匹配 ::package
 .match('::package', {
-    packager: fis.plugin('map'),
-    // spriter: fis.plugin('csssprites', {
-    //     layout: 'matrix',
-    //     margin: '15'
-    // })
-
-    // postpackager: fis.plugin('replace', {
-    //     '/css/home.css': {
-    //         'url\\(/images/|gi': 'url(../images/',
-    //         'url\\(\'/images/|gi': 'url(\'../images/'
-    //     }
-    // })
+    packager: fis.plugin('map')
 })
 
 .match('**', {
@@ -368,15 +362,6 @@ fis
         })
     ]
 })
-
-// .match('*.{css, less}', {
-//     postpackager: fis.plugin('replace', {
-//         '/css/home.css': {
-//             'url\\(/images/|gi': 'url(../images/',
-//             'url\\(\'/images/|gi': 'url(\'../images/'
-//         }
-//     })
-// })
 
 // ======================== 环境配置 =========================
 
