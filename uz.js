@@ -114,7 +114,12 @@ fis
 })
 
 .match('*.styl', {
-    parser: 'stylus',
+    parser: [
+        fis.plugin('less-import', {
+            file: path.join(__dirname, 'src/modules/base/base.styl')
+        }),
+        fis.plugin('stylus')
+    ],
     useSprite: true,
     rExt: '.css'
 })
@@ -354,7 +359,7 @@ fis
 // 启用打包插件，必须匹配 ::package
 .match('::package', {
     packager: fis.plugin('map'),
-    spriter: fis.plugin('csssprites-group', {
+    spriter: fis.plugin('csssprites-group-rename', {
         //图片缩放比例，设计图是2倍的，所以做页面时缩小一倍
         scale: 1/2,
         //1rem像素值，如果不配置rem合并后的图片大小单位就是px
