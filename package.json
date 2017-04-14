@@ -2,7 +2,7 @@
   "name": "uz",
   "description": "前端构建工具",
   "main": "uz.js",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "bin": {
     "uz": "./bin/uz"
   },
@@ -27,10 +27,10 @@
     "fis-lint-jshint": "0.0.4",
     "fis-parser-coffee-script": "0.0.2",
     "fis-parser-es6-babel": "^1.0.0",
+    "fis-parser-import": "^0.2.0",
     "fis-parser-jade": "~0.0.11",
     "fis-parser-jade-runtime": "0.0.3",
     "fis-parser-less": "0.1.0",
-    "fis-parser-less-import": "^0.1.0",
     "fis-parser-less-px2rem": "^1.0.6",
     "fis-parser-replace-path": "~0.0.2",
     "fis-parser-utc": "0.0.2",

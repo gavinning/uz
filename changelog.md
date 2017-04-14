@@ -1,3 +1,8 @@
+v1.2.5
+---
+* 替换``fis-parser-less-import``依赖为``fis-parser-import`` 支持stylus
+* 因Nodejs7.x兼容原因，暂时停用sprites功能
+
 v1.2.3
 ---
 * 支持stylus
